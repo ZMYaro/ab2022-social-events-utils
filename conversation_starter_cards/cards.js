@@ -52,19 +52,19 @@ function padCardsList(cardsTextList) {
  * @param {Array<String>} cardsTextList - The array of the text for each card
  */
 function addCardFronts(cardsTextList) {
-	for (let cardText of cardsTextList) {
-		addCardFront(cardText);
-	}
+	cardsTextList.forEach((cardText, i) =>
+		addCardFront(cardText, i));
 }
 
 /**
  * Create a new element for the card front text and add it to the page.
  * @param {String} cardText - The text to add to the card (may include HTML)
+ * @param {Number} i - The index on the list
  */
-function addCardFront(cardText) {
+function addCardFront(cardText, i) {
 	let card = document.createElement('div');
 	card.className = 'card card-front';
-	card.innerHTML = cardText;
+	card.innerHTML = cardText + `<span class="card-number">${i + 1}</span>`;
 	document.body.appendChild(card);
 }
 
@@ -73,9 +73,8 @@ function addCardFront(cardText) {
  * @param {Array<String>} cardsTextList - 
  */
 function addCardBacks(cardsTextList) {
-	for (let cardText of cardsTextList) {
-		addCardBack();
-	}
+	cardsTextList.forEach(() =>
+		addCardBack());
 }
 
 /**

@@ -29,6 +29,7 @@ body {
 }
 
 .card {
+	position: relative; /* So numbers can be absolutely positioned inside. */
 	display: inline-flex;
 	box-sizing: border-box;
 	vertical-align: top;
@@ -55,4 +56,11 @@ body {
 .card-back {
 	background-image: url('card_bg.png');
 	background-size: cover;
+}
+
+.card-number {
+	position: absolute;
+	right: 0.125in;
+	bottom: 0.12in;
+	font-size: 9pt;
 }
