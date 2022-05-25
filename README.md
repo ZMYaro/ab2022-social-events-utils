@@ -6,4 +6,4 @@ Navigate to `/conversation_starter_cards/index.html`, and you should just be abl
 
 Make sure you print with zero margins and background graphics enabled in your print settings.
 
-Edit `/conversation_starter_cards/edit_this_to_change_the_cards.js` to change the card text.  Each line will become a card.  You can use HTML for formatting (e.g., `<br />`, `<strong>`, `<em>`).
+You can change the text in the box at the top, and the cards should update in real time.  Each line will become a card.  You can use HTML for formatting (e.g., `<br />`, `<strong>`, `<em>`).  The text box will not show up when printing (in modern browsers), only the cards.  Edit `/conversation_starter_cards/index.html` if you want to change the default card list.

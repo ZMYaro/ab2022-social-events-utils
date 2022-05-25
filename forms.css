@@ -1,0 +1,22 @@
+#input-form {
+	width: 100%; 	
+	max-width: calc(600px + 1em);
+	border: 1px solid #808080;
+	border-radius: 0.5em;
+	margin: 0.5em;
+	padding: 0.5em;
+	
+	text-align: center;
+	font-family: var(--ab-font-family);
+}
+	#input-form textarea {
+		width: 100%;
+		max-width: 600px;
+		font-family: monospace;
+	}
+
+@media print {
+	#input-form {
+		display: none;
+	}
+}

@@ -3,34 +3,45 @@
 /** @constant {Number} The number of cards that will be printed on each page */
 const CARDS_PER_PAGE = 6;
 
-window.onload = addCards;
+	/** {HTMLTextAreaElement} The input field for the cards' text */
+let inputField,
+	/** {HTMLDivElement} The container element for all the printable cards */
+	cardsContainer;
 
-function addCards() {
+window.onload = function () {
+	inputField = document.querySelector('#input-form textarea');
+	inputField.oninput = generateCards;
+	cardsContainer = document.getElementById('cards-container');
+	generateCards();
+};
+
+function generateCards() {
+	// Clear any old cards.
+	cardsContainer.innerHTML = '';
+	// Get the latest list.
 	let cardsTextList = parseCardsText();
+	// Pad it out in case there are not enough to perfectly fill all pages.
 	padCardsList(cardsTextList);
+	// Add the cards.
 	addCardFronts(cardsTextList);
 	addCardBacks(cardsTextList);
 }
 
 /**
- * Convert the plain text cards list from index.html to an array, removing any empty lines.
- * This has *some* amount of error handling for people messing up the `CARDS_TEXT` array.
+ * Convert the plain text cards list from the form to an array, removing any empty lines.
  * @returns {Array<String>} - The array of the text for each card
  */
 function parseCardsText() {
-	if (!CARDS_TEXT) {
-		alert('The “CARDS_TEXT” list was removed or damaged in edit_this_to_change_the_cards.js!');
+	let input = inputField?.value?.trim();
+	if (!input) {
 		return [];
 	}
+	
 	let cardsTextList = [];
-	for (let cardText of CARDS_TEXT.split('\n')) {
+	for (let cardText of input.split('\n')) {
 		let trimmedCardText = cardText.trim();
 		if (!trimmedCardText) { continue; }
 		cardsTextList.push(trimmedCardText);
-	}
-	if (cardsTextList.length === 0) {
-		alert('No card text was found in edit_this_to_change_the_cards.js!');
-		return [];
 	}
 	return cardsTextList;
 }
@@ -65,7 +76,7 @@ function addCardFront(cardText, i) {
 	let card = document.createElement('div');
 	card.className = 'card card-front';
 	card.innerHTML = cardText + `<span class="card-number">${i + 1}</span>`;
-	document.body.appendChild(card);
+	cardsContainer.appendChild(card);
 }
 
 /**
