@@ -17,10 +17,6 @@
 	--cell-height: var(--cell-width);
 	--cell-padding: 0.25in;
 	--cell-font-size: 16pt;
-	
-	--ab-font-family: 'Museo Sans', 'Lato', sans-serif;
-	--ab-blue: #0b72ba;
-	--ab-orange: #f69220;
 }
 
 html,
@@ -46,15 +42,40 @@ body {
 	justify-content: center;
 	
 	background-color: var(--ab-orange);
+	color: white;
 	
 	/* Show borders for debugging */
-	box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.5);
+	/*box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.5);*/
 }
 
-.bingo-heading {
+.bingo-page-front {
+	--front-bg-width: 1784px;
+	--front-bg-height: 1792px;
+	--front-bg-scale-factor: 0.125;
+	--scaled-front-bg-width: calc(var(--front-bg-scale-factor) * var(--front-bg-width));
+	--scaled-front-bg-height: calc(var(--front-bg-scale-factor) * var(--front-bg-height));
+	
+	background-image: url('bg_front.png');
+	background-size: var(--scaled-front-bg-width) var(--scaled-front-bg-height);
+	background-repeat: repeat;
+}
+
+.bingo-page-back {
+	background-size: cover;
+	background-image: url('bg_back.png');
+}
+
+.heading {
 	margin: 0;
 	margin-bottom: var(--element-spacing);
+	font-size: 36pt;
+	letter-spacing: 0.5em;
 }
+	.heading-last-letter {
+		/* Without this, the heading will not be centered because the
+		   browser will add trailing spacing after the last letter. */
+		letter-spacing: 0em;
+	}
 
 .bingo-table {
 	width: var(--table-width);
@@ -75,6 +96,7 @@ body {
 		
 		background-color: rgba(255, 255, 255, 0.8);
 		border: 1px solid black;
+		color: black;
 		font-size: var(--cell-font-size);
 	}
 	
@@ -108,5 +130,5 @@ body {
 
 .footer-logo {
 	width: calc(var(--page-width) - (6 * var(--page-margin)));
-	margin-top: var(--element-spacing);
+	margin-top: calc(2 * var(--element-spacing));
 }
