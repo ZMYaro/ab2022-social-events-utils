@@ -1,0 +1,112 @@
+:root {
+	/*
+		• You can change these to change the paper size or customize the card font.
+		• This assumes you already have the Museo Sans font installed on your computer.
+		• It also uses Lato as a fallback before it just defaults to your browser's
+		  default sans-serif font (which will probably look worse).
+	*/
+	--page-width: 8.5in;
+	--page-height: 11in;
+	--page-margin: 0.5in;
+	
+	--element-spacing: 0.25in;
+	
+	--table-width: calc(var(--page-width) - (2 * var(--page-margin)));
+	--table-corner-radius: 0.25in;
+	--cell-width: calc(var(--table-width) / 5);
+	--cell-height: var(--cell-width);
+	--cell-padding: 0.25in;
+	--cell-font-size: 16pt;
+	
+	--ab-font-family: 'Museo Sans', 'Lato', sans-serif;
+	--ab-blue: #0b72ba;
+	--ab-orange: #f69220;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	max-width: var(--page-width);
+	text-align: center;
+	font-family: var(--ab-font-family);
+}
+
+.bingo-page {
+	width: var(--page-width);
+	height: var(--page-height);
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	
+	background-color: var(--ab-orange);
+	
+	/* Show borders for debugging */
+	box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.5);
+}
+
+.bingo-heading {
+	margin: 0;
+	margin-bottom: var(--element-spacing);
+}
+
+.bingo-table {
+	width: var(--table-width);
+	border-collapse: collapse;
+}
+	.bingo-table th {
+		width: var(--cell-width);
+		
+		border: 0 none;
+		font-weight: bold;
+		font-size: 48pt;
+	}
+	.bingo-table td {
+		box-sizing: border-box;
+		width: var(--cell-width);
+		height: var(--cell-height);
+		padding: var(--cell-padding);
+		
+		background-color: rgba(255, 255, 255, 0.8);
+		border: 1px solid black;
+		font-size: var(--cell-font-size);
+	}
+	
+	/* Remove the outer table cell borders */
+	.bingo-table tr:nth-child(1) td {
+		border-top: 0 none;
+	}
+	.bingo-table tr:nth-child(5) td {
+		border-bottom: 0 none;
+	}
+	.bingo-table td:nth-child(1) {
+		border-left: 0 none;
+	}
+	.bingo-table td:nth-child(5) {
+		border-right: 0 none;
+	}
+	
+	/* Curve the outer corners */
+	.bingo-table tr:nth-child(1) td:nth-child(1) {
+		border-top-left-radius: var(--table-corner-radius);
+	}
+	.bingo-table tr:nth-child(1) td:nth-of-type(5) {
+		border-top-right-radius: var(--table-corner-radius);
+	}
+	.bingo-table tr:nth-child(5) td:nth-of-type(1) {
+		border-bottom-left-radius: var(--table-corner-radius);
+	}
+	.bingo-table tr:nth-child(5) td:nth-of-type(5) {
+		border-bottom-right-radius: var(--table-corner-radius);
+	}
+
+.footer-logo {
+	width: calc(var(--page-width) - (6 * var(--page-margin)));
+	margin-top: var(--element-spacing);
+}
