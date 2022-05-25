@@ -1,0 +1,58 @@
+:root {
+	/*
+		• You can change these to change the paper size or customize the card font.
+		• This assumes you already have the Museo Sans font installed on your computer.
+		• It also uses Lato as a fallback before it just defaults to your browser's
+		  default sans-serif font (which will probably look worse).
+	*/
+	--page-width: 8.5in;
+	--page-height: 11in;
+	
+	--card-width: calc(var(--page-width) / 2);   /* Each card is 1/2 page wide (2 columns per page) */
+	--card-height: calc(var(--page-height) / 3); /* Each card is 1/3 page tall (3 rows per page) */
+	
+	--card-padding: 0.5in;
+	--card-font-family: 'Museo Sans', 'Lato', sans-serif;
+	--card-font-size: 24pt;
+	--card-font-weight: bold;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	max-width: var(--page-width);
+}
+
+.card {
+	display: inline-flex;
+	box-sizing: border-box;
+	vertical-align: top;
+	width: var(--card-width);
+	height: var(--card-height);
+	
+	/* Show borders for debugging */
+	/*box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.5);*/
+}
+.card-front {
+	background-color: white;
+	padding: 0 var(--card-padding);
+	
+	/* Center text horizontally and vertically. */
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	
+	font-family: var(--card-font-family, 'Museo Sans');
+	font-size: var(--card-font-size, 24pt);
+	font-weight: var(--card-font-weight, bold);
+}
+
+.card-back {
+	background-image: url('card_bg.png');
+	background-size: cover;
+}
