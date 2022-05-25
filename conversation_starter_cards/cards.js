@@ -19,7 +19,7 @@ function addCards() {
  */
 function parseCardsText() {
 	if (!CARDS_TEXT) {
-		alert('The “CARDS_TEXT” list was removed or damaged in index.html!');
+		alert('The “CARDS_TEXT” list was removed or damaged in edit_this_to_change_the_cards.js!');
 		return [];
 	}
 	let cardsTextList = [];
@@ -29,7 +29,7 @@ function parseCardsText() {
 		cardsTextList.push(trimmedCardText);
 	}
 	if (cardsTextList.length === 0) {
-		alert('No card text was found in index.html!');
+		alert('No card text was found in edit_this_to_change_the_cards.js!');
 		return [];
 	}
 	return cardsTextList;
