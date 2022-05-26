@@ -1,13 +1,27 @@
 'use strict';
 
+/** {Number} The number of squares on a board minus the free space */
+const BOARD_SQUARES = 24;
+
+	/** {HTMLTextAreaElement} The input field for the number of boards */
+let countInputField,
 	/** {HTMLTextAreaElement} The input field for the tropes text */
-let inputField,
+	tropesInputField,
 	/** {HTMLDivElement} The container element for all the printable bingo board pages */
 	bingoPagesContainer;
 
+/**
+ * Shuffle the array in a quick, not perfectly random, but good enough manner.
+ */
+Array.prototype.lazyShuffle = function () {
+	return this.sort(() => Math.random() < 0.5 ? -1 : 1);
+};
+
 window.onload = function () {
-	inputField = document.querySelector('#input-form textarea');
-	inputField.oninput = generateBingoPages;
+	countInputField = document.querySelector('#input-form input[type="number"]');
+	tropesInputField = document.querySelector('#input-form textarea');
+	countInputField.oninput = generateBingoPages;
+	tropesInputField.oninput = generateBingoPages;
 	bingoPagesContainer = document.getElementById('bingo-pages-container');
 	generateBingoPages();
 };
@@ -15,37 +29,19 @@ window.onload = function () {
 function generateBingoPages() {
 	// Clear any old board pages.
 	bingoPagesContainer.innerHTML = '';
+	
+	// Get the number of boards to generate.
+	let boardsCount = parseInt(countInputField.value) || 0;
 	// Get the latest tropes list.
 	let tropesList = parseTropesText();
 	
-	// TODO: Implement actually generating all the different trope combinations for different boards.
-	// Hard-coded placeholder for testing...
-	let boardsList = [[
-		'one',
-		'two',
-		'three',
-		'four',
-		'five',
-		'six',
-		'seven',
-		'eight',
-		'nine',
-		'ten',
-		'eleven',
-		'twelve',
-		'thirteen',
-		'fourteen',
-		'fifteen',
-		'sixteen',
-		'seventeen',
-		'eighteen',
-		'nineteen',
-		'twenty',
-		'twenty-one',
-		'twenty-two',
-		'twenty-three',
-		'twenty-four'
-	]];
+	// If there are not enough tropes to fill a board, quit.
+	if (tropesList.length < BOARD_SQUARES || boardsCount === 0) {
+		return;
+	}
+	
+	// Generate a random selection of boards.
+	let boardsList = getRandomBoards(tropesList, boardsCount);
 	
 	addBingoPageFronts(boardsList);
 	addBingoPageBacks(boardsList);
@@ -56,7 +52,7 @@ function generateBingoPages() {
  * @returns {Array<String>} - The array of the text of each trope
  */
 function parseTropesText() {
-	let input = inputField?.value?.trim();
+	let input = tropesInputField?.value?.trim();
 	if (!input) {
 		return [];
 	}
@@ -71,8 +67,35 @@ function parseTropesText() {
 }
 
 /**
+ * Generate a number of unique random bingo boards.
+ * @param {Array<String>} tropesList - The array of the text of each trope
+ * @param {Number} boardsCount - The number of boards to generate
+ * @returns {Array<Array<String>>} - The list of the individual trope lists for all the boards
+ */
+function getRandomBoards(tropesList, boardsCount) {
+	let boardsList = [], // The actual list of tropes for each board.
+		stringifiedBoards = []; // Stringified trope lists for quick duplicate checking.
+	
+	for (let i = 0; i < boardsCount; i++) {
+		let boardList,
+			stringifiedBoard;
+		do {
+			// Generate a random board that is not a duplicate.
+			boardList = tropesList.lazyShuffle().slice(0, BOARD_SQUARES);
+			stringifiedBoard = JSON.stringify(boardList);
+		} while (stringifiedBoards.includes(stringifiedBoard));
+		
+		// Add the new board to the list.
+		boardsList.push(boardList);
+		stringifiedBoards.push(stringifiedBoard);
+	}
+	
+	return boardsList;
+}
+
+/**
  * Create and add all the possible bingo boards.
- * @param {Array<Array<String>>} boardsList - The list of the trope lists for all the boards
+ * @param {Array<Array<String>>} boardsList - The list of the individual trope lists for all the boards
  */
 function addBingoPageFronts(boardsList) {
 	boardsList.forEach((boardTropes) =>
@@ -127,7 +150,7 @@ function getBingoTableHTML(boardTropes) {
 			<tr>
 				<td>${boardTropes[10]}</td>
 				<td>${boardTropes[11]}</td>
-				<td style="font-weight: bold;">FREE<br />SPACE</td>
+				<td class="free-space">FREE!<br />SPACE</td>
 				<td>${boardTropes[12]}</td>
 				<td>${boardTropes[13]}</td>
 			</tr>
@@ -151,7 +174,7 @@ function getBingoTableHTML(boardTropes) {
 
 /**
  * Create and add a back for each bingo board.
- * @param {Array<Array<String>>} boardsList - The list of the trope lists for all the boards
+ * @param {Array<Array<String>>} boardsList - The list of the individual trope lists for all the boards
  */
 function addBingoPageBacks(boardsList) {
 	boardsList.forEach(() =>

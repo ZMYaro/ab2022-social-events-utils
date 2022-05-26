@@ -15,8 +15,8 @@
 	--table-corner-radius: 0.25in;
 	--cell-width: calc(var(--table-width) / 5);
 	--cell-height: var(--cell-width);
-	--cell-padding: 0.25in;
-	--cell-font-size: 16pt;
+	--cell-padding: 0.125in;
+	--cell-font-size: 12pt;
 }
 
 html,
@@ -99,6 +99,10 @@ body {
 		color: black;
 		font-size: var(--cell-font-size);
 	}
+		.bingo-table td.free-space {
+			font-size: calc(1.5 * var(--cell-font-size));
+			font-weight: bold;
+		}
 	
 	/* Remove the outer table cell borders */
 	.bingo-table tr:nth-child(1) td {
@@ -129,6 +133,7 @@ body {
 	}
 
 .footer-logo {
-	width: calc(var(--page-width) - (6 * var(--page-margin)));
+	max-width: calc(var(--page-width) - (6 * var(--page-margin)));
+	max-height: 0.5in;
 	margin-top: calc(2 * var(--element-spacing));
 }
