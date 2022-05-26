@@ -11,8 +11,7 @@
 	
 	--table-width: calc(var(--page-width) - (2 * var(--page-margin)));
 	--table-corner-radius: 0.25in;
-	--cell-width: calc(var(--table-width) / 5);
-	--cell-height: var(--cell-width);
+	--cell-size: calc(var(--table-width) / 5);
 	--cell-padding: 0.125in;
 	--cell-font-size: 14pt;
 }
@@ -82,7 +81,7 @@ body {
 	table-layout: fixed;
 }
 	.bingo-table th {
-		width: var(--cell-width);
+		width: var(--cell-size);
 		padding-bottom: 0.125in;
 		
 		border: 0 none;
@@ -92,8 +91,8 @@ body {
 	}
 	.bingo-table td {
 		box-sizing: border-box;
-		width: var(--cell-width);
-		height: var(--cell-height);
+		width: var(--cell-size);
+		height: var(--cell-size);
 		padding: var(--cell-padding);
 		
 		background-color: rgba(255, 255, 255, 0.8);
