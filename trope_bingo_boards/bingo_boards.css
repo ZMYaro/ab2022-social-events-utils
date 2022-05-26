@@ -9,14 +9,12 @@
 	--page-height: 11in;
 	--page-margin: 0.5in;
 	
-	--element-spacing: 0.25in;
-	
 	--table-width: calc(var(--page-width) - (2 * var(--page-margin)));
 	--table-corner-radius: 0.25in;
 	--cell-width: calc(var(--table-width) / 5);
 	--cell-height: var(--cell-width);
 	--cell-padding: 0.125in;
-	--cell-font-size: 12pt;
+	--cell-font-size: 14pt;
 }
 
 html,
@@ -67,9 +65,10 @@ body {
 
 .heading {
 	margin: 0;
-	margin-bottom: var(--element-spacing);
+	margin-bottom: 0.125em;
 	font-size: 36pt;
 	letter-spacing: 0.5em;
+	text-shadow: 4.5px 4.5px 0px var(--ab-blue);
 }
 	.heading-last-letter {
 		/* Without this, the heading will not be centered because the
@@ -80,13 +79,16 @@ body {
 .bingo-table {
 	width: var(--table-width);
 	border-collapse: collapse;
+	table-layout: fixed;
 }
 	.bingo-table th {
 		width: var(--cell-width);
+		padding-bottom: 0.125in;
 		
 		border: 0 none;
 		font-weight: bold;
 		font-size: 48pt;
+		text-shadow: 5px 5px 0px var(--ab-blue);
 	}
 	.bingo-table td {
 		box-sizing: border-box;
@@ -134,6 +136,6 @@ body {
 
 .footer-logo {
 	max-width: calc(var(--page-width) - (6 * var(--page-margin)));
-	max-height: 0.5in;
-	margin-top: calc(2 * var(--element-spacing));
+	max-height: 0.45in;
+	margin-top: 0.5in;
 }
